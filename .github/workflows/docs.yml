@@ -1,0 +1,37 @@
+name: Documentation Update
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**/*.java'   # Trigger only when Java files change
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Generate README
+        run: |
+          echo "# HackerRank Java Solutions" > README.md
+          echo "" >> README.md
+          echo "This repo contains solutions to HackerRank Java challenges." >> README.md
+          echo "" >> README.md
+          echo "## Solutions" >> README.md
+          find . -name "*.java" | sort | while read file; do
+            echo "- \`$file\`" >> README.md
+          done
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "docs: auto-update README with new solutions"
+          branch: main
