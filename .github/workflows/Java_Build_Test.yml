@@ -30,7 +30,7 @@ jobs:
           java org.junit.runner.JUnitCore MyTestClass || echo "No tests found"
 
       - name: Checkstyle (code quality)
-        uses: nikitasavinov/checkstyle-action@v1.2.0
+        uses: nikitasavinov/checkstyle-action@v1.0.0
         with:
           checkstyle_config: google_checks.xml
           fail_on_error: true
