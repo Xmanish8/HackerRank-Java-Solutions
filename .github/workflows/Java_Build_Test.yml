@@ -21,8 +21,8 @@ jobs:
           distribution: 'temurin'
 
       - name: Compile all Java files
-        run: javac $(find . -name "*.java")
-
+        run: javac $(find . -type f -name "*.java")
+        
       - name: Run JUnit tests
         run: |
           # If you have test classes, run them here
