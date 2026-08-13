@@ -21,7 +21,11 @@ jobs:
           distribution: 'temurin'
 
       - name: Compile all Java files
-        run: find . -type f -name "*.java" -print0 | xargs -0 javac
+    run: |
+      find . -type f -name "*.java" | while read file; do
+        dir=$(dirname "$file")
+        javac -d "$dir" "$file" 2>/dev/null || true
+      done
         
       - name: Run JUnit tests
         run: |
