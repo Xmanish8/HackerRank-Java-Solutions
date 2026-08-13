@@ -30,8 +30,8 @@ jobs:
           java org.junit.runner.JUnitCore MyTestClass || echo "No tests found"
 
       - name: Checkstyle (code quality)
-        uses: dbelyaev/action-checkstyle@v1.0.1
+        uses: dbelyaev/action-checkstyle@v3
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           checkstyle_config: google_checks.xml
           fail_on_error: true
-
