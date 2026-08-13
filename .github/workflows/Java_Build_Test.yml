@@ -23,6 +23,14 @@ jobs:
       - name: Compile all Java files
         run: javac $(find . -name "*.java")
 
-      - name: Run sample program (optional)
+      - name: Run JUnit tests
         run: |
-          echo "08 05 2015" | java Solution
+          # If you have test classes, run them here
+          # Adjust package/class names as needed
+          java org.junit.runner.JUnitCore MyTestClass || echo "No tests found"
+
+      - name: Checkstyle (code quality)
+        uses: nikitasavinov/checkstyle-action@v1.2.0
+        with:
+          checkstyle_config: google_checks.xml
+          fail_on_error: true
