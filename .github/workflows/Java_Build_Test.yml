@@ -21,7 +21,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Compile all Java files
-        run: javac $(find . -type f -name "*.java")
+        run: find . -type f -name "*.java" -print0 | xargs -0 javac
         
       - name: Run JUnit tests
         run: |
