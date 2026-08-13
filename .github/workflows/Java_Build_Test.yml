@@ -1,0 +1,28 @@
+name: Java CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Compile all Java files
+        run: javac $(find . -name "*.java")
+
+      - name: Run sample program (optional)
+        run: |
+          echo "08 05 2015" | java Solution
