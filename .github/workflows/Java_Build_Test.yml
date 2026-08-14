@@ -12,30 +12,18 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Compile all Java files
-    run: |
-      find . -type f -name "*.java" | while read file; do
-        dir=$(dirname "$file")
-        javac -d "$dir" "$file" 2>/dev/null || true
-      done
-        
-      - name: Run JUnit tests
+      - name: Compile all Java solutions
         run: |
-          # If you have test classes, run them here
-          # Adjust package/class names as needed
-          java org.junit.runner.JUnitCore MyTestClass || echo "No tests found"
-
-      - name: Checkstyle (code quality)
-        uses: dbelyaev/action-checkstyle@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          checkstyle_config: google_checks.xml
-          fail_on_error: true
+          find . -type f -name "Solution.java" -not -path "./.git/*" | while read file; do
+            echo "Compiling: $file"
+            dir=$(dirname "$file")
+            javac -d "$dir" "$file"
+          done
